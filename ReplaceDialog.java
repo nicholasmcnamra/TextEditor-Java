@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -5,7 +6,7 @@ import java.util.*;
 
 //TextEditor class starts here
 class TextEditor extends Frame implements ActionListener {
-    TextArea ta = new TextArea();
+    JTextArea ta = new JTextArea();
     int i, len1, len, pos1;
     String str = "", s3 = "", s2 = "", s4 = "", s32 = "", s6 = "", s7 = "", s8 = "", s9 = "";
     String months[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
@@ -137,6 +138,12 @@ class TextEditor extends Frame implements ActionListener {
             int strLen = strText.length();
             ta.select(0, strLen);
         }
+        if (arg.equals("Find")) {
+            ReplaceDialog replaceDialog = new ReplaceDialog(new JFrame(), new JTextPane());
+        }
+        if (chkb.isEnabled()) {
+            ta.setLineWrap(true);
+        }
         if (arg.equals("Time Stamp")) {
             GregorianCalendar gcalendar = new GregorianCalendar();
             String h = String.valueOf(gcalendar.get(Calendar.HOUR));
@@ -183,5 +190,46 @@ class AboutDialog extends Dialog implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         dispose();
+    }
+}
+
+public class ReplaceDialog extends JDialog implements ActionListener {
+
+    private JFrame owner;
+    private JTextPane pane;
+
+    private JPanel wordPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    private JPanel casePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    private JPanel inputs = new JPanel(new GridLayout(6, 1));
+    private JPanel buttons = new JPanel(new GridLayout(5, 1));
+    private JCheckBox word = new JCheckBox();
+    private JLabel wordLabel = new JLabel("Match whole word only");
+    private JCheckBox matchCase = new JCheckBox();
+    private JLabel matchCaseLabel = new JLabel("Match case");
+    public ReplaceDialog(JFrame owner, JTextPane pane)
+    {
+        super(owner, "Find & Replace", true);
+        this.owner = owner;
+        this.pane = pane;
+        initializeComponents();
+        setSize(360, 135);
+        Container c = getContentPane();
+        c.setLayout(new BorderLayout());
+        c.add(inputs, "Center");
+        c.add(buttons, "East");
+        pack();
+        setLocationRelativeTo(owner);
+        setVisible(true);
+    }
+
+    private void initializeComponents() {
+        wordPanel.add(word);
+        wordPanel.add(wordLabel);
+        casePanel.add(matchCase);
+        casePanel.add(matchCaseLabel);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
