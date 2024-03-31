@@ -139,7 +139,8 @@ class TextEditor extends Frame implements ActionListener {
             ta.select(0, strLen);
         }
         if (arg.equals("Find")) {
-            ReplaceDialog replaceDialog = new ReplaceDialog(new JFrame(), new JTextPane());
+            ReplaceDialog replaceDialog = new ReplaceDialog();
+            replaceDialog.FindFrame();
         }
         if (chkb.isEnabled()) {
             ta.setLineWrap(true);
@@ -194,39 +195,24 @@ class AboutDialog extends Dialog implements ActionListener {
 }
 
 public class ReplaceDialog extends JDialog implements ActionListener {
+    JButton find = new JButton("Find");
+    JButton replace = new JButton("Replace");
+    JTextField findtext = new JTextField("", 20);
 
-    private JFrame owner;
-    private JTextPane pane;
-
-    private JPanel wordPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-    private JPanel casePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-    private JPanel inputs = new JPanel(new GridLayout(6, 1));
-    private JPanel buttons = new JPanel(new GridLayout(5, 1));
-    private JCheckBox word = new JCheckBox();
-    private JLabel wordLabel = new JLabel("Match whole word only");
-    private JCheckBox matchCase = new JCheckBox();
-    private JLabel matchCaseLabel = new JLabel("Match case");
-    public ReplaceDialog(JFrame owner, JTextPane pane)
-    {
-        super(owner, "Find & Replace", true);
-        this.owner = owner;
-        this.pane = pane;
-        initializeComponents();
-        setSize(360, 135);
-        Container c = getContentPane();
-        c.setLayout(new BorderLayout());
-        c.add(inputs, "Center");
-        c.add(buttons, "East");
-        pack();
-        setLocationRelativeTo(owner);
+    JTextField replaceWith = new JTextField("", 20);
+    public void FindFrame(){
+        setSize(300, 200);
+        setLocation(400, 300);
+        setTitle("Find...");
+        JPanel panel = new JPanel();
+        panel.add(find);
+        panel.add(findtext);
+        panel.add(replace);
+        panel.add(replaceWith);
+        Container cpane = getContentPane();
+        cpane.add(panel, BorderLayout.CENTER);
         setVisible(true);
-    }
-
-    private void initializeComponents() {
-        wordPanel.add(word);
-        wordPanel.add(wordLabel);
-        casePanel.add(matchCase);
-        casePanel.add(matchCaseLabel);
+        find.addActionListener(this);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
