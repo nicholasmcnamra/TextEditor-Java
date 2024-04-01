@@ -148,7 +148,7 @@ class TextEditor extends Frame implements ActionListener {
             replaceDialog.FindFrame();
             String textToFind = replaceDialog.findtext.getText();
             if (ta.getText().contains(textToFind)) {
-                // figure out highlight text 
+                // figure out highlight text   
             }
             }
         if (chkb.isEnabled()) {
