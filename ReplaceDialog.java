@@ -3,6 +3,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
+
 
 //TextEditor class starts here
 class TextEditor extends Frame implements ActionListener {
@@ -140,8 +144,13 @@ class TextEditor extends Frame implements ActionListener {
         }
         if (arg.equals("Find")) {
             ReplaceDialog replaceDialog = new ReplaceDialog();
+
             replaceDialog.FindFrame();
-        }
+            String textToFind = replaceDialog.findtext.getText();
+            if (ta.getText().contains(textToFind)) {
+                // figure out highlight text
+            }
+            }
         if (chkb.isEnabled()) {
             ta.setLineWrap(true);
         }
